@@ -15,7 +15,7 @@ function App() {
     <div className="flex  md:relative flex-col md:justify-center md:items-center   h-screen  w-full  bg-blue-100">
       <div className="md:bg-white  rounded-md md:p-4 md:shadow-[0px_6px_10px_rgba(0,0,0,0.1)] flex md:flex-row flex-col  w-auto md:gap-22 md:w-[55vw] md:h-[71vh]">
         {/*sidebar component */}
-        <div className="bg-[url('images/bg-sidebar-mobile.svg')] md:bg-[url('images/bg-sidebar-desktop.svg')]  bg-contain  bg-no-repeat w-auto md:w-67.5 md:h-full h-[28vh]">
+        <div className="bg-[url('/images/bg-sidebar-mobile.svg')] md:bg-[url('/images/bg-sidebar-desktop.svg')]  bg-contain  bg-no-repeat w-auto md:w-67.5 md:h-full h-[28vh]">
           <div className="flex md:flex-col items-center justify-center h-full md:justify-normal  gap-3 md:pl-6 md:items-start md:pt-4 font-[apple-system]">
             {/**step 1 */}
             <div

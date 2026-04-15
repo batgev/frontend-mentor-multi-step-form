@@ -4,7 +4,7 @@ const ThankYou = () => {
   return (
     <div className="flex flex-col gap-8 items-center justify-center bg-white rounded-md w-[96vw] md:w-[27vw] px-4 pb-4 md:pb-0 md:px-0 h-full">
       <img
-        src="../public/images/icon-thank-you.svg"
+        src="/images/icon-thank-you.svg"
         alt="Thank you"
         className="w-16 h-16"
       />
