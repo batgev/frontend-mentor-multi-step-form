@@ -1,10 +1,18 @@
-import React from 'react'
+import React from "react";
 
-import useAuthStore from "../Store/store"
+import useAuthStore from "../Store/store";
 
-  
 const MonthlyAddOns = () => {
-  const { setStep2, setStep4 } = useAuthStore();
+  const {
+    setStep2,
+    setStep4,
+    onlineService,
+    largerStorage,
+    customizableProfile,
+    setOnlineService,
+    setLargerStorage,
+    setCustomizableProfile,
+  } = useAuthStore();
 
   const handleButtonClick = () => {
     setStep4();
@@ -27,7 +35,12 @@ const MonthlyAddOns = () => {
           className={`flex justify-between items-center bg-blue-50 border-2 border-purple-300 p-4 rounded-md`}
         >
           <div className={`flex gap-4 items-center`}>
-            <input type="checkbox" checked className="" />
+            <input
+              type="checkbox"
+              checked={onlineService}
+              onChange={(e) => setOnlineService(e.target.checked)}
+              className=""
+            />
             <div className={`flex flex-col `}>
               <span className="text-blue-950 font-bold">Online service </span>
               <span>Access to multiplayer games</span>
@@ -40,7 +53,12 @@ const MonthlyAddOns = () => {
           className={`flex justify-between items-center bg-blue-50 border-2 border-purple-300 p-4 rounded-md`}
         >
           <div className={`flex gap-4 items-center`}>
-            <input type="checkbox" checked className="" />
+            <input
+              type="checkbox"
+              checked={largerStorage}
+              onChange={(e) => setLargerStorage(e.target.checked)}
+              className=""
+            />
             <div className={`flex flex-col `}>
               <span className="text-blue-950 font-bold">Larger storage </span>
               <span>Extra 1TB of cloud save</span>
@@ -53,7 +71,12 @@ const MonthlyAddOns = () => {
           className={`flex justify-between items-center  border-2 border-purple-100 p-4 rounded-md`}
         >
           <div className={`flex gap-4 items-center`}>
-            <input type="checkbox" className="" />
+            <input
+              type="checkbox"
+              checked={customizableProfile}
+              onChange={(e) => setCustomizableProfile(e.target.checked)}
+              className=""
+            />
             <div className={`flex flex-col `}>
               <span className="text-blue-950 font-bold">
                 Custom theme on your profile
@@ -85,6 +108,6 @@ const MonthlyAddOns = () => {
       </div>
     </div>
   );
-}
+};
 
 export default MonthlyAddOns;

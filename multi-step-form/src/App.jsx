@@ -1,17 +1,16 @@
-import Plan from './components/Plan.jsx'
+import Plan from "./components/Plan.jsx";
 import PersonalInfo from "./components/PersonalInfo";
-import MonthlyAddOns from './components/MonthlyAddOns.jsx'
-import MonthlyWrapUp from './components/MonthlyWrapUp.jsx'
-import YearlyAddOns from './components/YearlyAddOns.jsx'
-import YearlyWrapUp from './components/YearlyWrapUp.jsx'
-import useAuthStore from './Store/store.js'
+import MonthlyAddOns from "./components/MonthlyAddOns.jsx";
+import MonthlyWrapUp from "./components/MonthlyWrapUp.jsx";
+import YearlyAddOns from "./components/YearlyAddOns.jsx";
+import YearlyWrapUp from "./components/YearlyWrapUp.jsx";
+import ThankYou from "./components/ThankYou.jsx";
+import useAuthStore from "./Store/store.js";
 function App() {
-//states for steps
-  
-  const {step1,step2,step3,step4,selectedMonth} = useAuthStore();
+  const { step1, step2, step3, step4, selectedMonth, isConfirmed } =
+    useAuthStore();
   const { setStep2, setStep1, setStep3, setStep4 } = useAuthStore();
 
- 
   return (
     <div className="flex  md:relative flex-col md:justify-center md:items-center   h-screen  w-full  bg-blue-100">
       <div className="md:bg-white  rounded-md md:p-4 md:shadow-[0px_6px_10px_rgba(0,0,0,0.1)] flex md:flex-row flex-col  w-auto md:gap-22 md:w-[55vw] md:h-[71vh]">
@@ -108,9 +107,16 @@ function App() {
 
           {/**monthly wrap up section */}
           <div
-            className={`${step4 ? (selectedMonth ? "flex" : "hidden") : "hidden"} justify-center md:justify-normal md:h-[90%] h-[80%] w-full md:w-auto  md:p-2`}
+            className={`${step4 && !isConfirmed ? (selectedMonth ? "flex" : "hidden") : "hidden"} justify-center md:justify-normal md:h-[90%] h-[80%] w-full md:w-auto  md:p-2`}
           >
             <MonthlyWrapUp />
+          </div>
+
+          {/**thank you monthly */}
+          <div
+            className={`${step4 && isConfirmed && selectedMonth ? "flex" : "hidden"} justify-center md:justify-normal md:h-[90%] h-[80%] w-full md:w-auto  md:p-2`}
+          >
+            <ThankYou />
           </div>
 
           {/**yearly section */}
@@ -122,9 +128,16 @@ function App() {
 
           {/*yearly wrap */}
           <div
-            className={`${step4 ? (!selectedMonth ? "flex" : "hidden") : "hidden"} justify-center md:justify-normal md:h-[90%] h-[80%] w-full md:w-auto  md:p-2`}
+            className={`${step4 && !isConfirmed && !selectedMonth ? "flex" : "hidden"} justify-center md:justify-normal md:h-[90%] h-[80%] w-full md:w-auto  md:p-2`}
           >
             <YearlyWrapUp />
+          </div>
+
+          {/*thank you yearly */}
+          <div
+            className={`${step4 && isConfirmed && !selectedMonth ? "flex" : "hidden"} justify-center md:justify-normal md:h-[90%] h-[80%] w-full md:w-auto  md:p-2`}
+          >
+            <ThankYou />
           </div>
         </div>
       </div>

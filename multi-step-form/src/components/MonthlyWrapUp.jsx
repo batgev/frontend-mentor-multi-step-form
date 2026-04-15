@@ -1,40 +1,28 @@
 import React from "react";
 import useAuthStore from "../Store/store";
-import {useState,useEffect} from 'react'
+import { useEffect } from "react";
 
 const MonthlyWrapUp = () => {
-  const { setStep3, setStep5 } = useAuthStore();
-  const [plan,setPlan] = useState("");
-  const [price,setPrice] = useState("")
-  const [totalPrice,setTotalPrice] = useState(0)
-  const {arcadeMonth,advancedMonth,proMonth} = useAuthStore();
-
-const handlePlans = () => {
-  if (arcadeMonth) {
-    setPlan("Arcade(Monthly)");
-    setPrice("$9/mo");
-    setTotalPrice(12);
-  } else if (advancedMonth) {
-    setPlan("Advanced(Monthly");
-    setPrice("$12/mo");
-    setTotalPrice(15);
-  } else if (proMonth) {
-    setPlan("Pro(Monthly");
-    setPrice("$15/mo");
-    setTotalPrice(18)
-  }
-
-  
-};
-  useEffect(()=>{
-   handlePlans
-  })
-
-
+  const { setStep3, setIsConfirmed } = useAuthStore();
+  const {
+    getCurrentPlan,
+    getAddonsList,
+    getTotalPrice,
+    getAddonPrice,
+    selectedMonth,
+  } = useAuthStore();
+  const plan = getCurrentPlan();
+  const addonsList = getAddonsList();
+  const totalPrice = getTotalPrice();
 
   const handleButtonClick = () => {
-    setStep5();
+    setIsConfirmed();
   };
+
+  useEffect(() => {
+    // Compute if needed, but since computed in store, no need
+  }, []);
+
   return (
     <div className="flex  flex-col gap-8 bg-white rounded-md w-[96vw] md:w-[27vw] px-4 pb-4 md:pb-0 md:px-0">
       {/**header */}
@@ -52,38 +40,34 @@ const handlePlans = () => {
         <div className={`flex justify-between items-center `}>
           <div className={`flex gap-4 items-center`}>
             <div className={`flex flex-col `}>
-              <span className="text-blue-950 font-bold">{plan} </span>
+              <span className="text-blue-950 font-bold">
+                {plan.name} ({selectedMonth ? "Monthly" : "Yearly"})
+              </span>
               <span className="underline">Change</span>
             </div>
           </div>
-          <div className="text-purple-600">{price}</div>
+          <div className="text-purple-600">
+            ${plan.price}
+            {selectedMonth ? "/mo" : "/yr"}
+          </div>
         </div>
         <hr />
-        <div className={`flex justify-between items-center `}>
-          <div className={`flex gap-4 items-center`}>
-            <div className={`flex flex-col `}>
-              <span className="text-blue-950 font-bold">Online Service </span>
-            </div>
+        {addonsList.map((addon) => (
+          <div key={addon} className={`flex justify-between items-center `}>
+            <span className="text-blue-950 font-bold">{addon}</span>
+            <span className="text-purple-600">
+              +${getAddonPrice(addon)}/{selectedMonth ? "mo" : "yr"}
+            </span>
           </div>
-          <div className="text-purple-600">+$1/mo</div>
-        </div>        
-          
-        <div className={`flex justify-between items-center `}>
-          <div className={`flex gap-4 items-center`}>
-            <div className={`flex flex-col `}>
-              <span className="text-blue-950 font-bold">Larger Storage</span>
-              
-            </div>
-          </div>
-          <div className="text-purple-600">+$2/mo</div>
-        </div>
-
-        
+        ))}
       </div>
 
-      <div>
-        <span>Total (per month)</span>
-        <span>{`$ ${totalPrice}`}</span>
+      <div className="font-bold text-xl">
+        <span>Total {selectedMonth ? "(per month)" : "(per year)"}</span>
+        <span className="text-blue-600">
+          ${totalPrice}
+          {selectedMonth ? "/mo" : "/yr"}
+        </span>
       </div>
 
       {/* back and next buttons*/}
@@ -109,3 +93,4 @@ const handlePlans = () => {
 };
 
 export default MonthlyWrapUp;
+
